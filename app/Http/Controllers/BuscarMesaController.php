@@ -44,8 +44,7 @@ class BuscarMesaController extends Controller
                 if($detalles['pedidos']!=null)
                 {
                  return view('Mesa', compact( 'detalles'));
-                }
-                else
+                }else
                 {
                     return  view('sincliente');
                 }

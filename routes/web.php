@@ -31,13 +31,12 @@ Route::get('/mesaofactura', function(){
 });
 Route::get('/buscarfactura', 'BuscarFacturaController@index');
 Route::get('/buscarmesa', 'BuscarMesaController@index');
-Route::get('/crearcliente', 'ClienteController@index');
 
 ///post
 Route::post('/buscarfactura', 'BuscarFacturaController@find');
 Route::post('/welcome', 'autController@ingresar');
 Route::post('/buscarmesa', 'BuscarMesaController@find');
-Route::post('/crearcliente', 'ClienteController@enviar');
+
 
 //patch
 Route::patch('/buscarmesa', 'BuscarMesaController@actualizarped' );
