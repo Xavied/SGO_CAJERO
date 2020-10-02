@@ -4,7 +4,7 @@ Proyecto Laravel 6
 composer install 
 
 //clonamos el contenido del archivo .env <br>
-cp.env.example .env
+cp .env.example .env
 
 //generamos una App_Key  <br>
 php artisan Key:generate
