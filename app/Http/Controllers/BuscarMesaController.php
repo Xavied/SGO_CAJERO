@@ -40,7 +40,7 @@ class BuscarMesaController extends Controller
             // $detales=$detalles['clientes'];//array de clientes
                 //$longitud= count($detales);
 
-                dd($detalles);
+               
         if($detalles['status']==200)
         {
              return view('sinpedidos');
