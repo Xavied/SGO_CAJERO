@@ -50,6 +50,7 @@ class BuscarFacturaController extends Controller
                 //restamos el total menos el iva
                 $subtotaliva=$var-$totalconiva;
                 $subtotal=\number_format($subtotaliva, 2);
+
                 return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal')); //pasamos cada valor a la vista Factura
 
 
