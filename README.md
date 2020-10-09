@@ -4,7 +4,7 @@
 Para clonar el repositorio //clonamos el proyecto:
 <br>
 
-git clone https://github.com/Xavied/_SGO_.git
+git clone https://github.com/Xavied/SGO_CAJERO.git
 <br>
 
 //instalamos las dependencias del proyecto <br>
