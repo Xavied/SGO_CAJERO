@@ -38,7 +38,7 @@ Route::post('/welcome', 'autController@ingresar');
 Route::post('/buscarmesa', 'BuscarMesaController@find');
 
 
-//patch
+//patch //
 Route::patch('/buscarmesa', 'BuscarMesaController@actualizarped' );
 
 

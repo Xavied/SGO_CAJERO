@@ -22,7 +22,7 @@
 
 
     <div class="container">
-                     <h1>Pedido</h1>
+                     <h2>Pedido</h2>
                 <div class=panel>
                     @foreach($detalles['pedidos'] as $cli)
 
