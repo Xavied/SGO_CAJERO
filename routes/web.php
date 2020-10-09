@@ -35,10 +35,10 @@ Route::get('/buscarmesa', 'BuscarMesaController@index');
 ///post
 Route::post('/buscarfactura', 'BuscarFacturaController@find');
 Route::post('/welcome', 'autController@ingresar');
-Route::post('/buscarmesa', 'BuscarMesaController@find');
+Route::post('/buscarmesa', 'BuscarMesaController@find')->name('buscarmesa');
 
 
 //patch //
-Route::patch('/buscarmesa', 'BuscarMesaController@actualizarped' );
+//Route::patch('/buscarmesa', 'BuscarMesaController@actualizarped' );
 
 

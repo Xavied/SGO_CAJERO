@@ -10,13 +10,21 @@ class BuscarMesaController extends Controller
 {
     public function index()
     {
-        return view('buscarmesa');
+        $client = new Client ([
+            'base_uri'=>'https://sgo-central-6to.herokuapp.com',
+        //'timeout'=> 2.0,// tiempo a esperar por una respuesta
+
+        ]);
+        $response = $client->request('GET', '/api/mesas');
+        $mesas =  json_decode($response->getBody()->getContents());
+        $mesas=$mesas->data;
+        return view('buscarmesa', compact('mesas'));
     }
 
     public function find(Request $request)
     {
-            $idMesa=$request->idMesa;//extraemos el id que nos llega al buscar una Mesa
 
+            $idMesa=$request->idMesa;//extraemos el id que nos llega al buscar una Mesa
             $client = new Client ([
                 'base_uri'=>'https://sgo-central-6to.herokuapp.com',
             //'timeout'=> 2.0,// tiempo a esperar por una respuesta
@@ -32,7 +40,7 @@ class BuscarMesaController extends Controller
             // $detales=$detalles['clientes'];//array de clientes
                 //$longitud= count($detales);
 
-
+               
         if($detalles['status']==200)
         {
              return view('sinpedidos');
