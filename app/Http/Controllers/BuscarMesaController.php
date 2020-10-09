@@ -18,7 +18,7 @@ class BuscarMesaController extends Controller
             $idMesa=$request->idMesa;//extraemos el id que nos llega al buscar una Mesa
 
             $client = new Client ([
-                'base_uri'=>'https://safe-bastion-34410.herokuapp.com',
+                'base_uri'=>'https://sgo-central-6to.herokuapp.com',
             //'timeout'=> 2.0,// tiempo a esperar por una respuesta
 
             ]);
@@ -38,9 +38,7 @@ class BuscarMesaController extends Controller
              return view('sinpedidos');
         }
         else
-         {
-
-
+        {
                 if($detalles['pedidos']!=null)
                 {
                  return view('Mesa', compact( 'detalles'));
@@ -48,7 +46,7 @@ class BuscarMesaController extends Controller
                 {
                     return  view('sincliente');
                 }
-            }
+        }
 
 
 

@@ -18,7 +18,7 @@ class autController extends Controller
        try
        {
                 $client = new Client([
-                    'base_uri'=>'https://safe-bastion-34410.herokuapp.com',
+                    'base_uri'=>'https://sgo-central-6to.herokuapp.com',
                 //'timeout'=> 2.0,// tiempo a esperar por una respuesta
 
                 ]);
