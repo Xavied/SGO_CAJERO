@@ -16,7 +16,7 @@ class BuscarFacturaController extends Controller
     {
        $idFac=$request->idFac;//extraemos el id que nos llega al buscar una factura
        $iva=0.12;//iva funcional del controlador
-       $vistaiva=12;//iva para mostrar en la vista
+       $vistaiva=12;//iva para mostrar en la vista //probando gitHub
 
 
       try
