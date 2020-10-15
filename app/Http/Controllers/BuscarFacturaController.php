@@ -16,7 +16,7 @@ class BuscarFacturaController extends Controller
     {
        $idFac=$request->idFac;//extraemos el id que nos llega al buscar una factura
        $iva=0.12;//iva funcional del controlador
-       $vistaiva=12;//iva para mostrar en la vista //probando gitHub
+       $vistaiva=12;//iva para mostrar en la vista
 
 
       try
@@ -29,9 +29,12 @@ class BuscarFacturaController extends Controller
             ]);
 
                 $response = $client->request('GET', "/api/facs/{$idFac}");//añadimos el número que extraímos a la ruta api/facs/{númeroExtarido}
-                $responsedeta = $client->request('GET', "/api/facs/{$idFac}");//hacemos otra llamada con la misma petición
+                $responsedeta = $client->request('GET',"/api/facs/{$idFac}"); //hacemos otra llamada con la misma petición
+               
 
                 $facs= json_decode($response->getBody()->getContents());//extraemos el contenido de facs
+
+                
                 $detalles=json_decode($responsedeta->getBody()->getContents(), true);//array del json
 
                 $detales=$detalles['detalles_de_platos'];//nos concentramos en el array de detalles de platos
@@ -51,7 +54,7 @@ class BuscarFacturaController extends Controller
                 $subtotaliva=$var-$totalconiva;
                 $subtotal=\number_format($subtotaliva, 2);
 
-                return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal')); //pasamos cada valor a la vista Factura
+                return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac')); //pasamos cada valor a la vista Factura
 
 
         } catch(guzzlehttp \ guzzle \ src \ Exception \ RequestException $e)
