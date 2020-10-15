@@ -13,10 +13,11 @@ class imprimirController extends Controller
    
     
     public function imprimir(Request $request){
-    
+        //$pdf = \PDF::loadView('imprimir');
+        //return $pdf->stream('imprimir.pdf');
 
-        //$pdf = PDF::loadView('imprimir',compact('facs'));
-       // return $pdf->stream('imprimir.pdf');
+       // $pdf = PDF::loadView('imprimir');
+        //return $pdf->stream('imprimir.pdf');
 
         $idFac=$request->idFac;//extraemos el id que nos llega al buscar una factura
        $iva=0.12;//iva funcional del controlador

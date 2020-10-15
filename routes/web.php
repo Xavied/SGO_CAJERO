@@ -37,6 +37,7 @@ Route::post('/buscarfactura', 'BuscarFacturaController@find');
 Route::post('/welcome', 'autController@ingresar');
 Route::post('/buscarmesa', 'BuscarMesaController@find')->name('buscarmesa');
 
+Route::get('/imprimir', 'imprimirController@imprimir')->name('imprimir');
 
 //patch //
 //Route::patch('/buscarmesa', 'BuscarMesaController@actualizarped' );

@@ -159,7 +159,13 @@
 <br>
 <div class="uk-animation-toggle" tabindex="0">
 <a class="uk-button uk-button-default content" href="/mesaofactura">Volver</a>
-
+{!! Form::open(['route'=> 'imprimir', 'method'=> 'POST']) !!}
+                        {{ Form::hidden('idFac', $idFac) }}
+                        <button type="submit" class="uk-button uk-button-primary content">
+                            Imprimir
+                        </button>
+                    {!! Form::close() !!}
+                    <br>
 </div>
 
 <br>
