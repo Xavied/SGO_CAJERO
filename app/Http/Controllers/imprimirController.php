@@ -12,14 +12,14 @@ class imprimirController extends Controller
     
    
     
-    public function imprimir(Request $request){
+    public function imprimir($idFactura){
         //$pdf = \PDF::loadView('imprimir');
         //return $pdf->stream('imprimir.pdf');
 
        // $pdf = PDF::loadView('imprimir');
         //return $pdf->stream('imprimir.pdf');
 
-        $idFac=$request->idFac;//extraemos el id que nos llega al buscar una factura
+       $idFac= $idFactura; //extraemos el id que nos llega al buscar una factura
        $iva=0.12;//iva funcional del controlador
        $vistaiva=12;//iva para mostrar en la vista
      //  $pdf = PDF::loadView('imprimir');
@@ -29,11 +29,11 @@ class imprimirController extends Controller
        {
             
             $client = new Client ([
-                'base_uri'=>'https://safe-bastion-34410.herokuapp.com',
+                'base_uri'=>'https://sgo-central-6to.herokuapp.com',
             //'timeout'=> 2.0,// tiempo a esperar por una respuesta
 
             ]);
-                $idFac=$request->idFac;
+                
                
                 $response = $client->request('GET', "/api/facs/{$idFac}");//añadimos el número que extraímos a la ruta api/facs/{númeroExtarido}
                 $responsedeta = $client->request('GET', "/api/facs/{$idFac}");//hacemos otra llamada con la misma petición
@@ -59,14 +59,20 @@ class imprimirController extends Controller
                 //restamos el total menos el iva
                 $subtotaliva=$var-$totalconiva;
                 $subtotal=\number_format($subtotaliva, 2);
-                $pdf = PDF::loadView('imprimir',compact('facs','detales','var','vistaiva','subtotal'.'idFac'));
-                return $pdf->strean('imprimir.pdf'); //pasamos cada valor a la vista Factura
+                $pdf = \PDF::loadView('imprimir',compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac'));
+                return $pdf->stream('imprimir.pdf');
+                 //pasamos cada valor a la vista Factura
 
                 //, compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal')
         } catch(guzzlehttp \ guzzle \ src \ Exception \ RequestException $e)
         {
             return "No se encuentrá la factura" . $e->getmessage();
 
+        }
+
+       /* public function imprimirFac(){
+            $pdf = PDF::loadView('imprimir',compact('facs','detalles','var','vistaiva','subtotal','idFac'));
+            return $pdf->strean('imprimir.pdf');
         }
         //$idFac  = $this->find();
         //$pdf = PDF::loadView('imprimir');
@@ -123,11 +129,11 @@ class imprimirController extends Controller
         {
             return "No se encuentrá la factura" . $e->getmessage();
 
-        }
+        }*/
 
 
 
-    }*/
+    }
        
     
 }
