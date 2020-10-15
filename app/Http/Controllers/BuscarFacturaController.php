@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+
 class BuscarFacturaController extends Controller
 {
 
@@ -30,11 +31,11 @@ class BuscarFacturaController extends Controller
 
                 $response = $client->request('GET', "/api/facs/{$idFac}");//añadimos el número que extraímos a la ruta api/facs/{númeroExtarido}
                 $responsedeta = $client->request('GET',"/api/facs/{$idFac}"); //hacemos otra llamada con la misma petición
-               
+
 
                 $facs= json_decode($response->getBody()->getContents());//extraemos el contenido de facs
 
-                
+
                 $detalles=json_decode($responsedeta->getBody()->getContents(), true);//array del json
 
                 $detales=$detalles['detalles_de_platos'];//nos concentramos en el array de detalles de platos
