@@ -1,163 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/css/uikit.min.css" />
-    <style>
-             .content {
-                 background-color: #FFBC30;
-                 color:#fff;
-            }
-            .blanco
-            {
-                color: #000000;
-                background-color: #fff;
-
-            }
-
+<html>
+    <head>
+        <style>
+            .header{background:#eee;color:#444;border-bottom:1px solid #ddd;padding:10px;}
+            .client-detail{background:#ddd;padding:10px;}
+            .client-detail th{text-align:left;}
+            .items{border-spacing:0;}
+            .items thead{background:#ddd;}
+            .items tbody{background:#eee;}
+            .items tfoot{background:#ddd;}
+            .items th{padding:10px;}
+            .items td{padding:10px;}
+            h1 small{display:block;font-size:16px;color:#888;}
+            table{width:100%;}
+            .text-right{text-align:right;}
         </style>
-   <title>Factura</title>
-</head>
-<body>
-<div class="uk-container">
+    </head>
+    <body>
 
-                    <table class="uk-table content">
-                        <caption><h2>Factura</h2></caption>
+    <div class="header">
+        <h1>
+        Comprobante # {{ str_pad ($facs->data->id, 7, '0', STR_PAD_LEFT) }}
 
-                        <tbody>
-                        <tr>
-                                <td>
+        </h1>
+    </div>
+    <table class="client-detail">
+        <tr>
+            <th style="width:100px;">
+               Nombre 
+            </th>
+            <td>{{$facs->cliente->cli_nom }}</td>
+        </tr>
+        <tr>
+            <th>Ruc</th>
+            <td>{{$facs->cliente->cli_ci }}</td>
+        </tr>
+      
+        <tr>
+            <th>Telefono</th>
+            <td>{{$facs->cliente->cli_telf }}</td>
+        </tr>
+    </table>
 
-                                    <div>
-                                        <div class="uk-card uk-card-small uk-card-body blanco">Número de Factura:    <span class="uk-label content">{{$facs->data->id }}</span></div>
-                                    </div>
+    <hr />
 
-                                </td>
-
-
-                        </tr>
-                            <tr>
-                                <td>
-
-                                    <div>
-                                        <div class="uk-card uk-card-small uk-card-body blanco">Cédula del Cliente:    <span class="uk-label content">{{$facs->cliente->cli_ci }}</span></div>
-                                    </div>
-
-                                </td>
-
-                                <td>
-
-                                    <div>
-                                        <div class="uk-card uk-card-small uk-card-body blanco">Atendido por:    <span class="uk-label content">{{ $facs->empleado }}</span></div>
-                                    </div>
-
-                                </td>
-
-
-
-
-                            </tr>
-
-
-                        <tr>
-                                <td>
-
-                                    <div>
-                                        <div class="uk-card uk-card-small uk-card-body blanco">Nombre del Cliente:    <span class="uk-label content">{{$facs->cliente->cli_nom }}</span></div>
-                                    </div>
-
-                                </td>
-
-
-                        </tr>
-                            <tr>
-                                <td>
-
-                                    <div>
-                                        <div class="uk-card uk-card-small uk-card-body blanco">Teléfonon del Cliente:    <span class="uk-label content">{{$facs->cliente->cli_telf }}</span></div>
-                                    </div>
-
-                                </td>
-
-
-
-
-                            </tr>
-                            <tr>
-                                <td>
-
-                                    <div>
-                                        <div class="uk-card uk-card-small uk-card-body blanco">Correo del Cliente:    <span class="uk-label content">{{$facs->cliente->cli_email }}</span></div>
-                                    </div>
-
-                                </td>
-                                <td>
-
-                                    <div>
-                                        <div class="uk-card uk-card-small uk-card-body blanco">Fecha:    <span class="uk-label content">{{ $facs->data->fct_fch }}</span></div>
-                                    </div>
-
-                                </td>
-
-
-
-
-                            </tr>
-
-                        </tbody>
-                    </table>
-</div>
-<br>
-<br>
-
-<div class="uk-container ">
-        <table class="uk-table uk-table-divider uk-text-center content ">
-            <caption><span  class="uk-label blanco"> <h2>Detalle</h2></caption>
-            <br>
-                <thead>
+    <table class="items">
+        <thead>
+            <tr>
+                <th class="text-left" style="width:15px;" >Cantidad</th>
+                <th class="text-left" style="width:100px;">Producto</th>
+                <th class="text-right" style="width:100px;">P.U</th>
+                <th class="text-right" style="width:100px;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($detalles['detalles_de_platos'] as $detapla)
                     <tr>
-                        <th class="uk-text-center blanco">Plato</th>
-                        <th class="uk-text-center blanco">Cantidad</th>
-                        <th class="uk-text-center blanco">Precio Unitario</th>
-                        <th class="uk-text-center blanco">Precio Total</th>
+                        <td class="text-left" >{{$detapla['dtall_cant']}}</td>
+                        <td class="text-center">{{$detapla['plt_nom']}}</td>
+                        <td class="text-right">{{$detapla['plt_pvp']}}</td>
+                        <td class="text-right">{{$detapla['dtall_valor']}}</td>
                     </tr>
-                </thead>
-                <tbody>
-                @foreach($detalles['detalles_de_platos'] as $detapla)
-                    <tr>
-                        <td class="uk-text-center blanco">{{$detapla['plt_nom']}}</td>
-                        <td class="uk-text-center blanco">{{$detapla['dtall_cant']}}</td>
-                        <td class="uk-text-center blanco">{{$detapla['plt_pvp']}}</td>
-                        <td class="uk-text-center blanco" >{{$detapla['dtall_valor']}}</td>
-                    </tr>
-                @endforeach
-
-                </tbody>
-                <tr class="uk-text-center blanco">
-                    <td ></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-
-                        <div>
-                            <div class="uk-card uk-card-default uk-card-body content">Sub total: {{ $subtotal }}</div>
-                            <div class="uk-card uk-card-default uk-card-body content">Iva: {{ $vistaiva }}%</div>
-                            <div class="uk-card uk-card-default uk-card-body content">Total: {{ $var }}</div>
-                        </div>
-
-
-                    </td>
-                </tr>
-
-        </table>
-
-
-</div>
-
-
-
-
-
+        @endforeach
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3" class="text-right"><b>IVA</b></td>
+            <td class="text-right"> {{ $vistaiva }}%</td>
+        </tr>
+        <tr>
+            <td colspan="3" class="text-right"><b>Sub Total</b></td>
+            <td class="text-right">{{ $subtotal }}</td>
+        </tr>
+        <tr>
+            <td colspan="3" class="text-right"><b>Total</b></td>
+            <td class="text-right">{{ $var }}</td>
+        </tr>
+        </tfoot>
+    </table>
+    </body>
+</html>
