@@ -39,8 +39,8 @@ Route::post('/buscarmesa', 'BuscarMesaController@find')->name('buscarmesa');
 
 Route::get('/imprimir/{idFactura}', 'imprimirController@imprimir');
 
-//Route::get('/imprimirFac','imprimirController@imprimirFac')->name('imprimirFac');
 //patch //
 //Route::patch('/buscarmesa', 'BuscarMesaController@actualizarped' );
-
+Route::get('/emailcontactar', 'EmailController@index');
+Route::post('/contactar', 'EmailController@contact')->name('contact');
 
