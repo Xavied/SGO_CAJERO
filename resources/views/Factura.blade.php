@@ -51,8 +51,9 @@
                                 <td>
 
                                     <div>
-                                        <div class="uk-card uk-card-small uk-card-body blanco">Atendido por:    <span class="uk-label content">{{ $facs->empleado }}</span></div>
+                                        <div class="uk-card uk-card-small uk-card-body blanco">Razón Social: <span class="uk-label content"><!--{{ $facs->empleado }}--> 1710101010001</span></div>
                                     </div>
+
 
                                 </td>
 
@@ -161,7 +162,7 @@
 <a class="uk-button uk-button-default content" href="/mesaofactura">Volver</a>
 <a class="uk-button uk-button-default content" href="{{"/imprimir/$idFac"}}">Imprimir</a>
 
-           
+
 </div>
 
 <br>
