@@ -19,14 +19,14 @@
 
     <div class="header">
         <h1>
-        Comprobante # {{ str_pad ($facs->data->id, 7, '0', STR_PAD_LEFT) }}
+       Factura # {{ str_pad ($facs->data->id, 7, '0', STR_PAD_LEFT) }}
 
         </h1>
     </div>
     <table class="client-detail">
         <tr>
             <th style="width:100px;">
-               Nombre 
+            Razon social
             </th>
             <td>{{$facs->cliente->cli_nom }}</td>
         </tr>
