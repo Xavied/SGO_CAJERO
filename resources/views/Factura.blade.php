@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/css/uikit.min.css" />
+    <!-- UIkit CSS
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/css/uikit.min.css" /> -->
     <style>
              .content {
                  background-color: #FFBC30;
@@ -160,7 +160,16 @@
 <br>
 <div class="uk-animation-toggle" tabindex="0">
 <a class="uk-button uk-button-default content" href="/mesaofactura">Volver</a>
-<a class="uk-button uk-button-default content" href="{{"/imprimir/$idFac"}}">Imprimir</a>
+                {!! Form::open(['route'=> 'variablesfactura', 'method'=> 'POST']) !!}
+                            {{ Form::hidden('idPedido', "$idPedido" )}}
+                            {{ Form::hidden('idFac', "$idFac") }}
+                            <button type="submit" class="uk-button uk-button-primary content">
+                                Imprimir
+                            </button>
+                {!! Form::close() !!}
+
+
+
 
 
 </div>
