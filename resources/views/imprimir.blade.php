@@ -39,12 +39,12 @@
             <td>{{$facs->cliente->cli_nom }}</td>
         </tr>
         <tr>
-            <th>Ruc</th>
+            <th>Cédula o Ruc</th>
             <td>{{$facs->cliente->cli_ci }}</td>
         </tr>
       
         <tr>
-            <th>Telefono</th>
+            <th>Teléfono</th>
             <td>{{$facs->cliente->cli_telf }}</td>
         </tr>
         <tr>
