@@ -16,6 +16,7 @@ class BuscarFacturaController extends Controller
     public function find(Request $request)
     {
        $idFac=$request->idFac;//extraemos el id que nos llega al buscar una factura
+       $idPedido=$request->idPedido;//extreamos el id del pedido que llega
        $iva=0.12;//iva funcional del controlador
        $vistaiva=12;//iva para mostrar en la vista
 
@@ -55,7 +56,7 @@ class BuscarFacturaController extends Controller
                 $subtotaliva=$var-$totalconiva;
                 $subtotal=\number_format($subtotaliva, 2);
 
-                return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac')); //pasamos cada valor a la vista Factura
+                return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac', 'idPedido')); //pasamos cada valor a la vista Factura
 
 
         } catch(guzzlehttp \ guzzle \ src \ Exception \ RequestException $e)

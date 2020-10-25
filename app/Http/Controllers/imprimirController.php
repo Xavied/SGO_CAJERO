@@ -13,6 +13,23 @@ class imprimirController extends Controller
 
 
 
+    public function variables(Request $request )
+    {
+        $idFac=$request->idFac;
+        $idPedido=$request->idPedido;
+        $client = new Client ([
+            'base_uri'=>'https://sgo-central-6to.herokuapp.com',
+        //'timeout'=> 2.0,// tiempo a esperar por una respuesta
+
+
+        ]);
+
+         $client->request('PUT', "api/pedidos/{$idPedido}",[
+             'json'=>['ped_terminado'=>'true']
+         ]);
+        return \redirect()->route('imprimirfactura', $idFac);
+    }
+
     public function imprimir($idFactura){
 
 

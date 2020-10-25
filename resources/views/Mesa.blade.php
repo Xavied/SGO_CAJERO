@@ -22,16 +22,29 @@
 
 
     <div class="container">
-                     <h2>Pedido</h2>
+                     <h2>Facturas de la Mesa</h2>
                 <div class=panel>
-                    @foreach($detalles['pedidos'] as $cli)
 
-                    <div class="panel-body">
-                    Pedido número: {{$cli['id']}}
+                    @foreach($clientes as $cli)
+
+                    <div>
+                        <div class="uk-card uk-card-hover uk-card-body">
+                            <h3 class="uk-card-title">Factura: {{$cli['idFac']}} </h3>
+                            <p> {{$cli['cli_ci']}}</p>
+                            <p> {{$cli['cli_nom']}}</p>
+                            {!! Form::open(['route'=> 'buscarfactura', 'method'=> 'POST']) !!}
+                                {{ Form::hidden('idFac', $cli['idFac']) }}
+                                {{ Form::hidden('idPedido', $cli['id']) }}
+                                <button type="submit" class="uk-button uk-button-primary content">
+                                    Siguiente
+                                </button>
+                            {!! Form::close() !!}
+                        </div>
+
                     </div>
-                    <br>
-                    <br>
                     @endforeach
+
+
 
                  </div>
 
