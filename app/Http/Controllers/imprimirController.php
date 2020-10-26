@@ -34,9 +34,15 @@ class imprimirController extends Controller
 
 
        $idFac= $idFactura; //extraemos el id que nos llega al buscar una factura
+ ChristianM_rama
+       //$iva=0.12;//iva funcional del controlador
+       $vistaiva=0.12;//iva para mostrar en la vista
+   
+
        $iva=0.12;//iva funcional del controlador
        $vistaiva=12;//iva para mostrar en la vista
 
+ master
       try
 
        {
@@ -69,8 +75,21 @@ class imprimirController extends Controller
                 }
 
                 //calculamos el total del iva
-                $totalconiva=$var*$iva;
+                //$totalconiva=$var*$iva;
                 //restamos el total menos el iva
+ ChristianM_rama
+                //$subtotaliva=$var-$totalconiva;
+                //$subtotal=\number_format($subtotaliva, 2);
+                $subtotaliva=$var;
+                $subtotal=\number_format($subtotaliva);
+                $IVA = $subtotal* $vistaiva;
+                $total = $subtotal + $IVA;
+                $pdf = \PDF::loadView('imprimir',compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total'));
+                return $pdf->stream('imprimir.pdf');
+                 //pasamos cada valor a la vista Factura
+                
+                //, compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal')
+
                 $subtotaliva=$var-$totalconiva;
                 $subtotal=\number_format($subtotaliva, 2);
                 $pdf = \PDF::loadView('imprimir',compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac'));
@@ -89,6 +108,7 @@ class imprimirController extends Controller
                 //retornamos la vista de la factura para que pueda ser imprimida.
                 return $pdf->stream('imprimir.pdf');
 
+master
         } catch(guzzlehttp \ guzzle \ src \ Exception \ RequestException $e)
         {
             return "No se encuentrá la factura" . $e->getmessage();

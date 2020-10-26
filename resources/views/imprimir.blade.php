@@ -19,25 +19,37 @@
 
     <div class="header">
         <h1>
-        Comprobante # {{ str_pad ($facs->data->id, 7, '0', STR_PAD_LEFT) }}
-
+       Factura # {{ str_pad ($facs->data->id, 7, '0', STR_PAD_LEFT) }}
         </h1>
+       <br>
+        Nombre de la empresa:Restaurantes X
+        </br>
+        <br>
+        Fecha: {{ $facs->data->fct_fch }}
+        </br>
+        <br>
+        e-mail: restaurantesX@gmail.com
+        </br>
     </div>
     <table class="client-detail">
         <tr>
-            <th style="width:100px;">
-               Nombre 
+            <th style="width:200px;">
+           Nombre del cliente
             </th>
             <td>{{$facs->cliente->cli_nom }}</td>
         </tr>
         <tr>
-            <th>Ruc</th>
+            <th>Cédula o Ruc</th>
             <td>{{$facs->cliente->cli_ci }}</td>
         </tr>
       
         <tr>
-            <th>Telefono</th>
+            <th>Teléfono</th>
             <td>{{$facs->cliente->cli_telf }}</td>
+        </tr>
+        <tr>
+            <th>Dirección</th>
+            <td>{{$facs->cliente->cli_dir }}</td>
         </tr>
     </table>
 
@@ -63,17 +75,18 @@
         @endforeach
         </tbody>
         <tfoot>
-        <tr>
-            <td colspan="3" class="text-right"><b>IVA</b></td>
-            <td class="text-right"> {{ $vistaiva }}%</td>
-        </tr>
+       
         <tr>
             <td colspan="3" class="text-right"><b>Sub Total</b></td>
             <td class="text-right">{{ $subtotal }}</td>
         </tr>
         <tr>
+            <td colspan="3" class="text-right"><b>IVA</b></td>
+            <td class="text-right"> {{ $IVA }}</td>
+        </tr>
+        <tr>
             <td colspan="3" class="text-right"><b>Total</b></td>
-            <td class="text-right">{{ $var }}</td>
+            <td class="text-right">{{ $total }}</td>
         </tr>
         </tfoot>
     </table>
