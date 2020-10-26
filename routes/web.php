@@ -44,3 +44,7 @@ Route::get('/imprimir/{imprimir}', 'imprimirController@imprimir')->name('imprimi
 Route::get('/emailcontactar', 'EmailController@index');
 Route::post('/contactar', 'EmailController@contact')->name('contact');
 
+//Reportes
+Route::post('tabla', 'ReporteController@crearReporte')->name('tablacrear');
+Route::get('form', 'ReporteController@form');
+Route::post('descargar-reporte', 'ReporteController@excel')->name('products.excel');
