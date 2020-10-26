@@ -24,6 +24,7 @@ class BuscarMesaController extends Controller
     public function find(Request $request)
     {
 
+
             $idMesa=$request->idMesa;//extraemos el id que nos llega al buscar una Mesa
             $client = new Client ([
                 'base_uri'=>'https://sgo-central-6to.herokuapp.com',
@@ -37,19 +38,20 @@ class BuscarMesaController extends Controller
                 $mesas= json_decode($response->getBody()->getContents());//extraemos el contenido de mesas
                 $detalles=json_decode($responsedeta->getBody()->getContents(), true);//array del json
 
-            // $detales=$detalles['clientes'];//array de clientes
+
                 //$longitud= count($detales);
 
-               
+                //dd($clientes);
         if($detalles['status']==200)
         {
              return view('sinpedidos');
         }
         else
         {
+            $clientes=$detalles['clientes'];//array de clientes
                 if($detalles['pedidos']!=null)
                 {
-                 return view('Mesa', compact( 'detalles'));
+                 return view('Mesa', compact( 'clientes'));
                 }else
                 {
                     return  view('sincliente');

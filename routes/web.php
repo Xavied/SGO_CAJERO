@@ -33,14 +33,14 @@ Route::get('/buscarfactura', 'BuscarFacturaController@index');
 Route::get('/buscarmesa', 'BuscarMesaController@index');
 
 ///post
-Route::post('/buscarfactura', 'BuscarFacturaController@find');
+Route::post('/buscarfactura', 'BuscarFacturaController@find')->name('buscarfactura');
 Route::post('/welcome', 'autController@ingresar');
 Route::post('/buscarmesa', 'BuscarMesaController@find')->name('buscarmesa');
+Route::post('/variablesimprimir', 'imprimirController@variables' )->name('variablesfactura');
+Route::get('/imprimir/{imprimir}', 'imprimirController@imprimir')->name('imprimirfactura');
 
-Route::get('/imprimir/{idFactura}', 'imprimirController@imprimir');
-
-//Route::get('/imprimirFac','imprimirController@imprimirFac')->name('imprimirFac');
 //patch //
 //Route::patch('/buscarmesa', 'BuscarMesaController@actualizarped' );
-
+Route::get('/emailcontactar', 'EmailController@index');
+Route::post('/contactar', 'EmailController@contact')->name('contact');
 

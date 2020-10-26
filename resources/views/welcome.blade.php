@@ -78,7 +78,7 @@
                             <input class="uk-input uk-form-width-medium" name="email" type="text" placeholder="correo">
                      </div>
                      <div class="uk-margin">
-                            <input class="uk-input uk-form-width-medium" name="password" type="text" placeholder="contraseña">
+                            <input class="uk-input uk-form-width-medium" type="password" name="password" type="text" placeholder="contraseña">
                      </div>
                      <div  class="uk-card uk-card-default uk-card-body uk-animation-fade">
                          <p class="uk-text-center">

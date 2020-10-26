@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+
 class BuscarFacturaController extends Controller
 {
 
@@ -15,8 +16,14 @@ class BuscarFacturaController extends Controller
     public function find(Request $request)
     {
        $idFac=$request->idFac;//extraemos el id que nos llega al buscar una factura
+ ChristianM_rama
        //$iva=0.12;//iva funcional del controlador
        $vistaiva=0.12;//iva para mostrar en la vista
+
+       $idPedido=$request->idPedido;//extreamos el id del pedido que llega
+       $iva=0.12;//iva funcional del controlador
+       $vistaiva=12;//iva para mostrar en la vista
+ master
 
 
       try
@@ -30,11 +37,11 @@ class BuscarFacturaController extends Controller
 
                 $response = $client->request('GET', "/api/facs/{$idFac}");//añadimos el número que extraímos a la ruta api/facs/{númeroExtarido}
                 $responsedeta = $client->request('GET',"/api/facs/{$idFac}"); //hacemos otra llamada con la misma petición
-               
+
 
                 $facs= json_decode($response->getBody()->getContents());//extraemos el contenido de facs
 
-                
+
                 $detalles=json_decode($responsedeta->getBody()->getContents(), true);//array del json
 
                 $detales=$detalles['detalles_de_platos'];//nos concentramos en el array de detalles de platos
@@ -51,6 +58,7 @@ class BuscarFacturaController extends Controller
                 //calculamos el total del iva
                // $totalconiva=$var*$iva;
                 //restamos el total menos el iva
+ChristianM_rama
                 
                 $subtotaliva=$var;
                 $subtotal=\number_format($subtotaliva);
@@ -58,6 +66,12 @@ class BuscarFacturaController extends Controller
                 $total = $subtotal + $IVA;
                //$total = $vistaiva + $subtotaliva
                 return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total')); //pasamos cada valor a la vista Factura
+
+                $subtotaliva=$var-$totalconiva;
+                $subtotal=\number_format($subtotaliva, 2);
+
+                return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac', 'idPedido')); //pasamos cada valor a la vista Factura
+master
 
 
         } catch(guzzlehttp \ guzzle \ src \ Exception \ RequestException $e)
