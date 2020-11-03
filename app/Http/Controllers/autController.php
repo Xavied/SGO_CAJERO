@@ -29,6 +29,7 @@ class autController extends Controller
                 ]);
 
             $data=json_decode($response->getBody());
+
             $data=$data->message;
 
             if($data='Bienvenido')
