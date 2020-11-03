@@ -31,13 +31,15 @@ Route::get('/mesaofactura', function(){
 });
 Route::get('/buscarfactura', 'BuscarFacturaController@index');
 Route::get('/buscarmesa', 'BuscarMesaController@index');
+Route::get('/imprimir/{imprimir}', 'imprimirController@imprimir')->name('imprimirfactura');
 
 ///post
 Route::post('/buscarfactura', 'BuscarFacturaController@find')->name('buscarfactura');
 Route::post('/welcome', 'autController@ingresar');
 Route::post('/buscarmesa', 'BuscarMesaController@find')->name('buscarmesa');
 Route::post('/variablesimprimir', 'imprimirController@variables' )->name('variablesfactura');
-Route::get('/imprimir/{imprimir}', 'imprimirController@imprimir')->name('imprimirfactura');
+Route::post('/buscarfacturacliente', 'BuscarFacturaController@verfacturas')->name('facturacliente');
+
 
 //patch //
 //Route::patch('/buscarmesa', 'BuscarMesaController@actualizarped' );

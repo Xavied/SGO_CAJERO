@@ -34,7 +34,7 @@
 <div class="uk-margin uk-margin-large-top uk-placeholder">
 
     <div class="uk-margin">
-    <h1 class="uk-text-center">No hay pedidos en está mesa</h1>
+    <h1 class="uk-text-center">No hay pedidos disponibles</h1>
     </div>
 
 </div>

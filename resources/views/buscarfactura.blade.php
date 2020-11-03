@@ -31,11 +31,12 @@
     <br>
     <br>
 
+
 <div class="uk-margin uk-margin-large-top uk-placeholder">
-<form action="/buscarfactura" method="POST">
+<form action='/buscarfacturacliente' method="POST">
 {{csrf_field()}}
     <div class="uk-margin">
-        <input class="uk-input uk-form-width-medium" name="idFac" type="numeric" placeholder="número de la factura">
+        <input class="uk-input uk-form-width-medium" name="cli_cedula" type="numeric" placeholder="número de cédula del cliente">
     </div>
     <br>
     <br>
@@ -48,6 +49,7 @@
         </div>
 
 </form>
+
 </div>
 
 <br>
