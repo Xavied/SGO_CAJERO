@@ -3,15 +3,56 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\ClientException;
 
 class BuscarFacturaController extends Controller
 {
 
 
+    public function verfacturas(Request $request)
+    {
+
+        try
+        {
+            $cedula_cli=$request->cli_cedula;
+
+            $client = new Client ([
+                'base_uri'=>'https://sgo-central-6to.herokuapp.com',
+            //'timeout'=> 2.0,// tiempo a esperar por una respuesta
+
+            ]);
+            $verf= $client->request('GET', "/api/cedulaclientes/$cedula_cli");
+
+           $cliexist= json_decode($verf->getBody()->getContents());
+           $response = $client->request('GET', "/api/clifacs/$cedula_cli");
+           $response = $client->request('GET', "/api/clifacs/$cedula_cli");
+           $facs =  json_decode($response->getBody()->getContents(), true);
+            if($facs['factura_clientes']==null)
+            {
+            return  "No tiene facturas disponibles";
+            }
+            else
+                $facs = $facs['factura_clientes'];
+            return \view('facturascliente', compact('facs'));
+
+            //dd($facs);*/
+        }catch(ClientException $e)
+        {
+            return "No hay un cliente con esa cédula";
+
+        }
+
+
+
+
+    }
     public function index()
     {
         return view('buscarfactura');
     }
+
+
 
     public function find(Request $request)
     {

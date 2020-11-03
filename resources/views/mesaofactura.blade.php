@@ -36,7 +36,7 @@
             <div class="uk-animation-toggle" tabindex="0">
                 <div class="uk-card uk-card-default uk-card-body uk-animation-fade">
                     <p class="uk-text-center">
-                        <a class="uk-button uk-button-default content" href="/buscarfactura"> Buscar por número de factura</a>
+                        <a class="uk-button uk-button-default content" href="/buscarfactura"> Buscar por cédula del Cliente</a>
                     </p>
                 </div>
 
