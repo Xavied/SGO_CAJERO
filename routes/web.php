@@ -50,3 +50,10 @@ Route::post('/contactar', 'EmailController@contact')->name('contact');
 Route::post('tabla', 'ReporteController@crearReporte')->name('tablacrear');
 Route::get('form', 'ReporteController@form');
 Route::post('descargar-reporte', 'ReporteController@excel')->name('products.excel');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+//Administrador
+Route::get('/Administrador', 'WebAdmin\PageController@admin')->name('admin');
