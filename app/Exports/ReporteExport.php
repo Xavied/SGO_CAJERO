@@ -12,16 +12,15 @@ class ReporteExport implements FromView
     private $data;
     private $keys;
 
-    public function __construct($data, $keys)
+    public function __construct($data)
     {
         $this->data = json_decode($data, true);
-        $this->keys = json_decode($keys, true);
     }
 
     public function view(): View
     {
         return view('excel', [
-            'data' => $this->data, 'keys' => $this->keys
+            'data' => $this->data
         ]);
     }    
 }

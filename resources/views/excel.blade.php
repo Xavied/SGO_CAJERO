@@ -1,24 +1,22 @@
-<?php $a=0;?>
 <table>
     <thead>
         <tr>  
         <th>FECHA</th>      
         <th>PLATO</th>
+        <th>TIPO</th>
         <th>CANTIDAD</th>
         <th>PRECIO</th>
         </tr>                    
     </thead>  
     <tbody> 
-    @foreach($data as $detapla)           
-        @foreach($detapla as $item) 
+    @foreach($data as $item)
             <tr>
-                <td>{{$keys[$a]}}</td>     
+                <td>{{$item['fct_fch']}}</td>     
                 <td>{{$item['plt_nom']}}</td>
+                <td>{{$item['plt_tipo']}}</td>
                 <td>{{$item['dtall_cant']}}</td>
                 <td>{{$item['plt_pvp']}}</td> 
-            </tr>                       
-        @endforeach
-                <?php $a++;?>                           
+            </tr>                           
     @endforeach
     </tbody>
 </table>
