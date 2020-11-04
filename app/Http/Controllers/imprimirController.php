@@ -39,10 +39,6 @@ class imprimirController extends Controller
        $vistaiva=0.12;//iva para mostrar en la vista
 
 
-       $iva=0.12;//iva funcional del controlador
-       $vistaiva=12;//iva para mostrar en la vista
-
-
       try
 
        {
@@ -74,26 +70,12 @@ class imprimirController extends Controller
                     $var+=$detales[$i]['dtall_valor']; //sumamos los valores de cada iteración
 
                 }
-
-                //calculamos el total del iva
-                //$totalconiva=$var*$iva;
-                //restamos el total menos el iva
-
-                //$subtotaliva=$var-$totalconiva;
-                //$subtotal=\number_format($subtotaliva, 2);
                 $subtotaliva=$var;
-                $subtotal=\number_format($subtotaliva);
+                $subtotal=\number_format($subtotaliva, 2);
                 $IVA = $subtotal* $vistaiva;
                 $total = $subtotal + $IVA;
                 $pdf = \PDF::loadView('imprimir',compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total'));
-                return $pdf->stream('imprimir.pdf');
-                 //pasamos cada valor a la vista Factura
 
-                //, compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal')
-
-                $subtotaliva=$var-$totalconiva;
-                $subtotal=\number_format($subtotaliva, 2);
-                $pdf = \PDF::loadView('imprimir',compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac'));
                //obtenemos el email del cliente de la factura solicitada
                 $emailCliFac=$detalles['cliente']['cli_email'];
                 //enviamos el pdf por mail
