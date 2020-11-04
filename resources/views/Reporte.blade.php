@@ -103,6 +103,45 @@
                     </div>
                 @endforeach
 
+                <!-- Prueba Tabla 2 ---------------------------------------------------------------------->
+                <div class="container bg-dark text-white p-3 mb-5 mt-5 text-center"><h5>Reporte de platos por sección</h5></div>
+                <?php $a=0; $totalfinal=0?>
+                @foreach($TiPlt3 as $detapla)            
+                    <div class="col-md-6"> 
+                        <table class="table table-striped table-sm" style="text-align:center;">
+                            <?php $total=0;?>
+                            <thead class="thead-dark">
+                                <tr>  
+                                <th scope="col">{{$keysTP[$a]}}</th>      
+                                <th scope="col">SECCIÓN</th>
+                                <th scope="col">CANTIDAD</th>
+                                <th scope="col">INGRESO</th>
+                                </tr>                    
+                            </thead>                
+                            <?php $a++;?>                        
+                            <tbody>
+                                @foreach($detapla as $item) 
+                                    <tr>                         
+                                        <td scope="col"></td>        
+                                        <td scope="col">{{$item['plt_tipo']}}</td>
+                                        <td scope="col">{{$item['dtall_cant']}}</td>
+                                            <?php $ingreso = $item['dtall_cant']*$item['plt_pvp'];?>
+                                        <td scope="col">$ {{$ingreso}}</td>  
+                                    </tr>      
+                                    <?php $total+=$ingreso; $totalfinal+=$ingreso?>                  
+                                @endforeach
+                                <tr>                         
+                                    <th class="table-warning" scope="col">TOTAL INGRESOS</th>  
+                                    <th class="table-warning" scope="col"></th> 
+                                    <th class="table-warning" scope="col"></th>       
+                                    <td class="table-warning" scope="col">$ {{$total}}</td>
+                                </tr>   
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
+                <!-- end prueba tabla 2 -->
+
                 <div class="container">
                     <div class="row justify-content-md-center">
                         <div class="bg-dark text-white p-3 mb-5 mt-5 text-center col-9">
@@ -115,7 +154,7 @@
                 </div>
             </div>     
         </div>
-    </div>
+    </div>    
 
     <!-- Optional JavaScript; choose one of the two! -->
 
