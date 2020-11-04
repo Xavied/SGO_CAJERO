@@ -41,13 +41,10 @@ class ReporteController extends Controller
             $todasout = [];
 
             //--------------------------------------------------------------
-            //$givenDate = "2020-10-10";
-            $givenDate = $fecha;
             //$dateMinusOneWeek = Carbon::parse($givenDate)->subWeek()->format('Y-m-d');
-            $datePlusOneWeek = Carbon::parse($givenDate)->addWeek()->format('Y-m-d');
-
-            $period = CarbonPeriod::create($givenDate , $datePlusOneWeek);
-
+            $datePlusOneWeek = Carbon::parse($fecha)->addWeek()->format('Y-m-d');
+            $period = CarbonPeriod::create($fecha , $datePlusOneWeek);
+            //Genera un array con las fechas generadas
             $dates = array();
             foreach ($period as $date) {
                     $dates[] = $date->format('Y-m-d');
@@ -66,11 +63,18 @@ class ReporteController extends Controller
             $todatos = [];
             $i=0;
 
+            //prueba-------------------------------------------------------------
+            // $auxi = $client->request('GET', "/api/facsplatos/1"); 
+            // $auxide=json_decode($auxi->getBody()->getContents(), true);
+            // return $auxide;
+            //end prueba---------------------------------------------------------
+
             //Obtiene todos los datos de las facturas de una fecha de todaout2
             foreach($todasout as $ele)
-            foreach($ele as $element)
+            foreach($ele as $element) 
             {
-                $auxi = $client->request('GET', "/api/facs/{$element['id']}"); //llamada por id a cada factura
+                //$auxi = $client->request('GET', "/api/facs/{$element['id']}"); //llamada por id a cada factura
+                $auxi = $client->request('GET', "/api/facsplatos/{$element['id']}");//CAMBIO!!!----
                 $auxide=json_decode($auxi->getBody()->getContents(), true);
                 $todatos[$i]=$auxide;  //se almacena cada factura en una posición del arreglo
                 $i++;
@@ -81,10 +85,15 @@ class ReporteController extends Controller
             $j=0;
 
             foreach($todatos as $element)
-                foreach($element['detalles_de_platos'] as $element1)
+                //foreach($element['detalles_de_platos'] as $element1)
+                foreach($element['platos_detalle'] as $element1)//CAMBIO!!----
                 {
-                    $Detalle[] = ['fct_fch' =>$element['data']['fct_fch'], 'plt_nom' => $element1['plt_nom'],'dtall_cant' => $element1['dtall_cant']+0, 'plt_pvp'=> $element1['plt_pvp']+0];
+                    //$Detalle[] = ['fct_fch' =>$element['data']['fct_fch'], 'plt_nom' => $element1['plt_nom'],'dtall_cant' => $element1['dtall_cant']+0, 'plt_pvp'=> $element1['plt_pvp']+0];
+                    //CAMBIO!!--
+                    $Detalle[] = ['fct_fch' =>$element['factura'][0]['fct_fch'], 'plt_nom' => $element1['plt_nom'], 'plt_tipo' => $element1['plt_tipo'],'dtall_cant' => $element1['dtall_cant']+0, 'plt_pvp'=> $element1['plt_pvp']+0];
                 }
+
+                
 
             $out = array();
             foreach ($Detalle as $row) {
@@ -103,6 +112,37 @@ class ReporteController extends Controller
                 }
             }
 
+            //Tipo de platos----------------------------------------------------------------------
+            $TiPlt = array();
+            foreach ($Detalle as $row) {
+                if(! isset($TiPlt[$row['fct_fch']][$row['plt_tipo']][$row['plt_pvp']])) {
+                    $TiPlt[$row['fct_fch']][$row['plt_tipo']][$row['plt_pvp']]=0;
+                }
+                $TiPlt[$row['fct_fch']][$row['plt_tipo']][$row['plt_pvp']] += $row['dtall_cant'];
+            }
+
+            $TiPlt2 = array();
+            foreach($TiPlt as $fct_fch => $fct_fch_array) {
+                foreach($fct_fch_array as $plt_tipo => $plt_tipo_array){
+                    foreach($plt_tipo_array as $plt_pvp => $dtall_cant){
+                    $TiPlt2[] = array('fct_fch' => $fct_fch, 'plt_tipo' => $plt_tipo, 'plt_pvp'=> $plt_pvp, 'dtall_cant' => $dtall_cant);
+                    }
+                }
+            }
+
+            $TiPlt3=array();
+            foreach($TiPlt2 as $element1)
+            {
+                $TiPlt3[$element1['fct_fch']][] = $element1;
+            }
+
+            $keysTP = array_keys($TiPlt3);
+            //end tipo de platos---------------------------------------------------------
+
+            //prueba-------------------------------------------------------------
+            //return $TiPlt2;
+            //end prueba---------------------------------------------------------
+
             $lol=array();
             foreach($out2 as $element1)
             {
@@ -115,7 +155,8 @@ class ReporteController extends Controller
                 //obtiene el nombre y la cantidad de todos los detalles en las facturas
                 $DetalleGraf = [];
                 foreach($todatos as $element)
-                    foreach($element['detalles_de_platos'] as $element1)
+                    //foreach($element['detalles_de_platos'] as $element1)
+                    foreach($element['platos_detalle'] as $element1)//CAMBIO!!----
                     {
                         $DetalleGraf[$element1['plt_nom']][] = ['plt_nom' => $element1['plt_nom'],'dtall_cant' => $element1['dtall_cant']+0];
                     }
@@ -138,7 +179,7 @@ class ReporteController extends Controller
             #endregion
 
 
-        return view('Reporte', compact('lol', 'keys', 'agrupGraf', 'dates'));
+        return view('Reporte', compact('lol', 'keys', 'agrupGraf', 'dates', 'TiPlt3', 'keysTP'));
     }
 
 }
