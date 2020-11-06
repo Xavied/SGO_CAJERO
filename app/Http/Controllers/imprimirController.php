@@ -70,10 +70,12 @@ class imprimirController extends Controller
                     $var+=$detales[$i]['dtall_valor']; //sumamos los valores de cada iteración
 
                 }
-                $subtotaliva=$var;
+                $subtotaliva=$var/1.12;
                 $subtotal=\number_format($subtotaliva, 2);
                 $IVA = $subtotal* $vistaiva;
+                $IVA = \number_format($IVA,2);
                 $total = $subtotal + $IVA;
+                $total= \number_format($total,2);
                 $pdf = \PDF::loadView('imprimir',compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total'));
 
                //obtenemos el email del cliente de la factura solicitada
