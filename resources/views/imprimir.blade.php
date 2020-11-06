@@ -60,7 +60,7 @@
             <tr>
                 <th class="text-left" style="width:15px;" >Cantidad</th>
                 <th class="text-left" style="width:100px;">Producto</th>
-                <th class="text-right" style="width:100px;">P.U</th>
+                <th class="text-right" style="width:100px;">PVU</th>
                 <th class="text-right" style="width:100px;">Total</th>
             </tr>
         </thead>
