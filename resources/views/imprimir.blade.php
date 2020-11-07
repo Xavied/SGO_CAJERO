@@ -60,7 +60,7 @@
             <tr>
                 <th class="text-left" style="width:15px;" >Cantidad</th>
                 <th class="text-left" style="width:100px;">Producto</th>
-                <th class="text-right" style="width:100px;">PVU</th>
+                <th class="text-right" style="width:100px;">PVP</th>
                 <th class="text-right" style="width:100px;">Total</th>
             </tr>
         </thead>
@@ -69,8 +69,15 @@
                     <tr>
                         <td class="text-left" >{{$detapla['dtall_cant']}}</td>
                         <td class="text-center">{{$detapla['plt_nom']}}</td>
-                        <td class="text-right">{{$detapla['plt_pvp']}}</td>
-                        <td class="text-right">{{$detapla['dtall_valor']}}</td>
+                        <td class="text-right">
+                        <?php
+                                $iva = 1.12;
+                                $detalle = round($detapla['plt_pvp']/$iva,2);
+                                $dtlvalor = round($detapla['dtall_valor']/$iva,2);                                
+                            ?>
+                         {{$detalle}}
+                        </td>
+                        <td class="text-right">{{$dtlvalor}}</td>
                     </tr>
         @endforeach
         </tbody>
