@@ -76,7 +76,7 @@ class imprimirController extends Controller
                 $IVA = \number_format($IVA,2);
                 $total = $subtotal + $IVA;
                 $total= \number_format($total,2);
-                $pdf = \PDF::loadView('imprimir',compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total'));
+                $pdf = \PDF::loadView('webcajero.imprimir',compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total'));
 
                //obtenemos el email del cliente de la factura solicitada
                 $emailCliFac=$detalles['cliente']['cli_email'];

@@ -20,7 +20,7 @@ class BuscarMesaController extends Controller
         $response = $client->request('GET', '/api/mesas');
         $mesas =  json_decode($response->getBody()->getContents());
         $mesas=$mesas->data;
-        return view('buscarmesa', compact('mesas'));
+        return view('webcajero.buscarmesa', compact('mesas'));
     }
 
     public function find(Request $request)
@@ -48,17 +48,17 @@ class BuscarMesaController extends Controller
                 //dd($clientes);
         if($detalles['status']==200)
         {
-             return view('sinpedidos');
+             return view('webcajero.sinpedidos');
         }
         else
         {
             $clientes=$detalles['clientes'];//array de clientes
                 if($detalles['pedidos']!=null)
                 {
-                 return view('Mesa', compact( 'clientes'));
+                 return view('webcajero.Mesa', compact( 'clientes'));
                 }else
                 {
-                    return  view('sincliente');
+                    return  view('webcajero.sincliente');
                 }
         }
 
