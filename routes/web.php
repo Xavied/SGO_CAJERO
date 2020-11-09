@@ -52,11 +52,17 @@ Route::get('form', 'ReporteController@form');
 Route::post('descargar-reporte', 'ReporteController@excel')->name('products.excel');
 Auth::routes();
 
+//Reporte Facturas por día
+Route::post('facturasDia', 'ReporteFacsController@crearReporte')->name('facsDia');
+Route::post('facturaSolicitada', 'ReporteFacsController@FacturaInd')->name('facturaindividual');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 
 //Administrador
 Route::get('/Administrador', 'WebAdmin\PageController@admin')->name('admin');
 
+
 Route::resource('platos', 'Admin\PlatoController');
 Route::resource('empleados', 'Admin\EmpleadoController');
+

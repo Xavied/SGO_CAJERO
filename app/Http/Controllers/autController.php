@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class autController extends Controller
 {
     public function ingresar(Request $request)
-    {
-       $this->validate($request, [
+    {       $this->validate($request, [
             'email' => 'required',
             'password' => 'required|numeric'
         ]);
@@ -37,9 +37,9 @@ class autController extends Controller
                 return \view('cajero');
             }
         }
-        catch(GuzzleHttp \ Exception \ RequestException $e)
+        catch(ClientException $e)
         {
-           return 'Algo malo pasó ';
+           return 'Error al autenticarse';
 
         }
 
