@@ -7,8 +7,12 @@ use GuzzleHttp\Client;
 
 class ReporteFacsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function FacturaInd(Request $request)
     {
+        
         $DatosFac = json_decode($request->Datos, true);
         $Fecha = $DatosFac['data']['fct_fch']; 
         //return $DatosFac;
