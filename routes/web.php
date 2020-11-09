@@ -57,3 +57,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Administrador
 Route::get('/Administrador', 'WebAdmin\PageController@admin')->name('admin');
+
+//Reporte Facturas por día
+Route::post('facturasDia', 'ReporteFacsController@crearReporte')->name('facsDia');
+Route::post('facturaSolicitada', 'ReporteFacsController@FacturaInd')->name('facturaindividual');
+
