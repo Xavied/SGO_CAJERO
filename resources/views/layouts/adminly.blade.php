@@ -40,7 +40,7 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">                            
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav ml-auto">
                                 <!-- Authentication Links -->
@@ -63,7 +63,7 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                                      document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ __('Salir') }}
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -86,6 +86,7 @@
     <!--ENDHEADER--------------------------------------------------------------------- -->
 
     <!--NAVBAR--------------------------------------------------------------------- -->
+
     <div id="app2">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div class="container">
@@ -95,6 +96,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                @guest
+                @if (Route::has('register'))
+                @endif
+                @else
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -103,22 +108,20 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Platos') }}</a>
+                            <a class="nav-link" href="{{route ('platos.index') }}">Platos</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Empleados') }}</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Facturas') }}</a>
+                            <a class="nav-link" href="{{ route ('empleados.index') }}">Empleados</a>
                         </li>
                     </ul>
-                    
+
                 </div>
+                @endguest
             </div>
         </nav>
     </div>
+
     <!--ENDNAVBAR--------------------------------------------------------------------- -->
 
     @yield('content')

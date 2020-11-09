@@ -57,3 +57,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Administrador
 Route::get('/Administrador', 'WebAdmin\PageController@admin')->name('admin');
+
+Route::resource('platos', 'Admin\PlatoController');
+Route::resource('empleados', 'Admin\EmpleadoController');
