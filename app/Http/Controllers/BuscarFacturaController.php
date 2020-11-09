@@ -62,6 +62,7 @@ class BuscarFacturaController extends Controller
        //$iva=0.12;//iva funcional del controlador
        $vistaiva=0.12;//iva para mostrar en la vista
        $idPedido=$request->idPedido;//extreamos el id del pedido que llega
+       
 
       try
 
@@ -84,7 +85,7 @@ class BuscarFacturaController extends Controller
                 $detalles=json_decode($responsedeta->getBody()->getContents(), true);//array del json
 
                 $detales=$detalles['detalles_de_platos'];//nos concentramos en el array de detalles de platos
-
+                
                 //vemos la longitud
                 $longitud= count($detales);//vemos su longitud
                 $var=0;
@@ -99,10 +100,12 @@ class BuscarFacturaController extends Controller
                 //restamos el total menos el iva
 
 
-                $subtotaliva=$var;
+                $subtotaliva=$var/1.12 ;
                 $subtotal=\number_format($subtotaliva, 2);
                 $IVA = $subtotal* $vistaiva;
+                $IVA = \number_format($IVA,2);
                 $total = $subtotal + $IVA;
+                $total = \number_format($total,2);
                //$total = $vistaiva + $subtotaliva
                 return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total', 'idPedido')); //pasamos cada valor a la vista Factura
 
