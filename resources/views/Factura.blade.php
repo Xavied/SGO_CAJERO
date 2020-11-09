@@ -22,15 +22,12 @@
         .header{float:right}
         .client-detail{width:5px}
         .formato{float:left}
-
+        
 
     </style>
 <title>Factura</title>
 </head>
 <body>
-
-
-
 
     <header>
     <div class="header">
@@ -68,7 +65,7 @@
             <td>{{$facs->cliente->cli_telf }}</td>
         </tr>
         <tr>
-            <th>Cédula / Email </th>
+            <th> Email </th>
             <td>{{$facs->cliente->cli_email }}</td>
         </tr>
         <tr>
@@ -126,23 +123,28 @@
             </tr>
             </table>
      </table>
-
-
+    
     <br>
     <div class="uk-animation-toggle" tabindex="0">
-        <a class="button" href="/mesaofactura">Volver</a>
-                        {!! Form::open(['route'=> 'variablesfactura', 'method'=> 'POST']) !!}
+        <a></a>
+                     
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="button-group">
+  <a class="secondary button" href="/mesaofactura">Volver</a>
+  {!! Form::open(['route'=> 'variablesfactura', 'method'=> 'POST']) !!}
                                     {{ Form::hidden('idPedido', "$idPedido" )}}
                                     {{ Form::hidden('idFac', "$idFac") }}
                                     <button type="submit" class="button">
                                         Imprimir
                                     </button>
-                        {!! Form::close() !!}
-    </div>
-
-
-
-
+                                    {!! Form::close() !!}                              
 </div>
 
 </body>
