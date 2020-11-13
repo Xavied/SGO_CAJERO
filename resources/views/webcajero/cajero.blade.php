@@ -1,57 +1,29 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <!-- UIkit CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/css/uikit.min.css" />
-
-        <!-- Styles -->
-        <style>
-             .content {
-                 background-color: #FFBC30;
-                 color:#fff;
-            }
-
-        </style>
-
-    </head>
-    <body>
-    <br>
-<div class="uk-animation-toggle" tabindex="0">
-<a class="uk-button uk-button-default content" href="/">Salir</a>
-
+@extends('layouts.cajeroly')
+@section('head')
+<title>Cajero</title>
+@endsection
+@section('header')
+<div class="mt-4">
+    <a class="btn btn-outline-danger" href="/">Salir</a>
 </div>
- </div>
-    <br>
-    <br>
 
-<div class="uk-margin uk-margin-large-top uk-placeholder">
-    <div class="uk-flex uk-flex-center">
-        <div class="uk-grid-match" uk-grid>
-            <div class="uk-animation-toggle" tabindex="0">
-                <div class="uk-card uk-card-default uk-card-body uk-animation-fade">
-                    <p class="uk-text-center">
-                        <a class="uk-button uk-button-default content" href="/mesaofactura"> Imprimir Factura
-                        </a>
-                    </p>
-                </div>
-            </div>
-            <br>
-            <br>
+@endsection
 
 
-    </div>
+
+@section('content')
+<div class="mt-5 row justify-content-center">
+    <div class="card" style="width: 50%;">
+        <img src="https://cdn.pixabay.com/photo/2020/09/28/16/05/cash-register-5610295_1280.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center">Imprimir Factura</h5>
+          <div class="text-center">
+            <a href="/mesaofactura" class="btn btn-primary">Ir!</a>
+          </div>
+
+        </div>
+      </div>
 </div>
 
 
-
-
-
-    </body>
-</html>
+@endsection
