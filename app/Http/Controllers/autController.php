@@ -34,7 +34,7 @@ class autController extends Controller
 
             if($data='Bienvenido')
             {
-                return \view('cajero');
+                return \view('webcajero.cajero');
             }
         }
         catch(ClientException $e)
