@@ -35,7 +35,7 @@ class BuscarFacturaController extends Controller
             }
             else
                 $facs = $facs['factura_clientes'];
-            return \view('facturascliente', compact('facs'));
+            return \view('webcajero.facturascliente', compact('facs'));
 
             //dd($facs);*/
         }catch(ClientException $e)
@@ -50,7 +50,7 @@ class BuscarFacturaController extends Controller
     }
     public function index()
     {
-        return view('buscarfactura');
+        return view('webcajero.buscarfactura');
     }
 
 
@@ -62,7 +62,7 @@ class BuscarFacturaController extends Controller
        //$iva=0.12;//iva funcional del controlador
        $vistaiva=0.12;//iva para mostrar en la vista
        $idPedido=$request->idPedido;//extreamos el id del pedido que llega
-       
+
 
       try
 
@@ -85,7 +85,7 @@ class BuscarFacturaController extends Controller
                 $detalles=json_decode($responsedeta->getBody()->getContents(), true);//array del json
 
                 $detales=$detalles['detalles_de_platos'];//nos concentramos en el array de detalles de platos
-                
+
                 //vemos la longitud
                 $longitud= count($detales);//vemos su longitud
                 $var=0;
@@ -107,13 +107,13 @@ class BuscarFacturaController extends Controller
                 $total = $subtotal + $IVA;
                 $total = \number_format($total,2);
                //$total = $vistaiva + $subtotaliva
-                return view('Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total', 'idPedido')); //pasamos cada valor a la vista Factura
+                return view('webcajero.Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total', 'idPedido')); //pasamos cada valor a la vista Factura
 
 
 
 
 
-        } catch(guzzlehttp \ guzzle \ src \ Exception \ RequestException $e)
+        } catch(RequestException $e)
         {
             return "No se encuentrá la factura" . $e->getmessage();
 

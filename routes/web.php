@@ -17,17 +17,17 @@
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('webcajero.welcome');
 });
 //nos vamos a la vista del cajero
 Route::get('/cajero', function(){
-    return view('cajero');
+    return view('webcajero.cajero');
 });
 
 
 //get
 Route::get('/mesaofactura', function(){
-    return view('mesaofactura');
+    return view('webcajero.mesaofactura');
 });
 Route::get('/buscarfactura', 'BuscarFacturaController@index');
 Route::get('/buscarmesa', 'BuscarMesaController@index');
