@@ -91,7 +91,7 @@ class imprimirController extends Controller
                     $mail->attachData($pdf->output(), 'imprimir.pdf');
                 });
                 //retornamos la vista de la factura para que pueda ser imprimida.
-                return $pdf->stream('imprimir.pdf');
+                return $pdf->download('imprimir.pdf');
 
 
         } catch(guzzlehttp \ guzzle \ src \ Exception \ RequestException $e)
