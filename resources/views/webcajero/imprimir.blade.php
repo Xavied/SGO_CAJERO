@@ -1,5 +1,7 @@
 <html>
+
     <head>
+    <meta charset="UTF-8">
         <style>
             .header{background:#eee;color:#444;border-bottom:1px solid #ddd;padding:10px;}
             .client-detail{background:#ddd;padding:10px;}
