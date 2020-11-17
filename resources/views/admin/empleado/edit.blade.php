@@ -2,19 +2,18 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">
+    <div class="card">
+        <div class="card-body">
+
+            <h5 class="card-title">
                 Editar plato
-            </div>
+            </h5>
 
-            <div class="panel-body">
-                {!! Form::model($empleadoarr, ['route' => ['empleados.update', $empleadoarr["id"]], 'method' => 'PUT']) !!}
+            {!! Form::model($empleadoarr, ['route' => ['empleados.update', $empleadoarr["id"]], 'method' => 'PUT']) !!}
 
-                @include('admin.empleado.partials.form')
+            @include('admin.empleado.partials.form')
 
-                {!! Form::close() !!}
-            </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

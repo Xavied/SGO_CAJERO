@@ -2,21 +2,40 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Ver etiqueta
-            </div>
+    <div class="card">
 
-            <div class="panel-body">
-                <p><strong>Id</strong> {{$platoarr["id"]}}</p>
-                <p><strong>Nombre</strong> {{$platoarr["plt_nom"]}}</p>
-                <p><strong>Descripción</strong> {{$platoarr["plt_des"]}}</p>
-                <p><strong>Tipo</strong> {{$platoarr["plt_tipo"]}}</p>
-                <p><strong>PVP</strong> {{$platoarr["plt_pvp"]}}</p>
-                <p><strong>Iva</strong> {{$platoarr["plt_iva"]}}</p>
-                <p><strong>Plato visible</strong> {{$platoarr["plt_visbl"]}}</p>
-            </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Ver plato
+            </h5>
+
+            <p><strong>Id</strong> {{$platoarr["id"]}}</p>
+            <p><strong>Nombre</strong> {{$platoarr["plt_nom"]}}</p>
+            <p><strong>Descripción</strong> {{$platoarr["plt_des"]}}</p>
+            <p><strong>Tipo</strong> {{$platoarr["plt_tipo"]}}</p>
+            <p><strong>PVP</strong> {{$platoarr["plt_pvp"]}}</p>
+            <p><strong>Iva</strong>
+                @if($platoarr["plt_iva"] == true)
+
+                Si
+
+                @else
+
+                No
+
+                @endif
+            </p>
+            <p><strong>Plato visible</strong>
+                @if($platoarr["plt_visbl"] == true)
+
+                Si
+
+                @else
+
+                No
+
+                @endif
+            </p>
         </div>
     </div>
 </div>
