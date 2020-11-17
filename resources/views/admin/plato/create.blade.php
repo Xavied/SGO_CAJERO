@@ -2,20 +2,19 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
                 Crear plato
-            </div>
+            </h5>
 
-            <div class="panel-body">
-                {!! Form::open(['route' => 'platos.store']) !!}
+            {!! Form::open(['route' => 'platos.store']) !!}
 
-                @include('admin.plato.partials.form')
+            @include('admin.plato.partials.form')
 
-                {!! Form::close() !!}
-            </div>
+            {!! Form::close() !!}
         </div>
     </div>
+
 </div>
 @endsection

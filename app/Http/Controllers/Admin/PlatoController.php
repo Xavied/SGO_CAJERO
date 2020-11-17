@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\PlatoStoreRequest;
+use App\Http\Requests\PlatoUpdateRequest;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\ClientException;
@@ -38,6 +41,8 @@ class PlatoController extends Controller
         $platos =  json_decode($platosjson->getBody()->getContents(), true);
         $platosarr = $platos['data:'];
 
+        //dd($platos);
+
         return view('admin.plato.index', compact('platosarr'));
     }
 
@@ -57,7 +62,7 @@ class PlatoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PlatoStoreRequest $request)
     {
         global $client;
 
@@ -68,7 +73,7 @@ class PlatoController extends Controller
                 'plt_tipo'=> "$request->plt_tipo",
                 'plt_pvp'=> "$request->plt_pvp",
                 'plt_visbl'=> "$request->plt_visbl",
-                'plt_iva'=>"$request->plt_iva"  
+                'plt_iva'=>"$request->plt_iva",  
                 ]            
         ]);
 
@@ -122,7 +127,7 @@ class PlatoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PlatoUpdateRequest $request, $id)
     {
         global $client;
 
@@ -133,7 +138,7 @@ class PlatoController extends Controller
                 'plt_tipo'=> "$request->plt_tipo",
                 'plt_pvp'=> "$request->plt_pvp",
                 'plt_visbl'=> "$request->plt_visbl",
-                'plt_iva'=>"$request->plt_iva"  
+                'plt_iva'=>"$request->plt_iva",  
                 ]
             
         ]);

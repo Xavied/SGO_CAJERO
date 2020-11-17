@@ -124,6 +124,28 @@
 
     <!--ENDNAVBAR--------------------------------------------------------------------- -->
 
+    <!--Info--------------------------------------------------------------------- -->
+    @if(session('info'))
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+            {{session('info')}}
+        </div>
+    </div>
+    @endif
+
+    @if(count($errors))
+    <div class="container">
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
+    <!--EndInfo--------------------------------------------------------------------- -->
+
     @yield('content')
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -144,4 +166,5 @@
 
 </body>
 @yield('scripts')
+
 </html>
