@@ -28,7 +28,7 @@ class ReporteFacsController extends Controller
         }                
                 
         $subtotal=\number_format($var/1.12, 2);
-        $IVA = \number_format($var* $vistaiva, 2);
+        $IVA = \number_format($subtotal* $vistaiva, 2);
         $total = \number_format($var, 2);
 
         return view('ReporteFacInd', compact('DatosFac', 'subtotal', 'IVA', 'total', 'Fecha'));       
@@ -59,22 +59,31 @@ class ReporteFacsController extends Controller
                 }
             }
             
-            //if el arreglo esta vacio no hay facturas en esas fechas!!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                           
-
-            //Obtiene todos los datos de las facturas existentes en las fechas seleccionadas
-            $DatosFacs = []; //Datos de las facturas seleccionadas
-            $i=0;
-            foreach($fechasid as $fecha)
+            //Si el arreglo fechasid está vacío no se han generado facturas en esa semana                           
+            if(count($fechasid)==0)
             {
-                foreach($fecha as $idfac) 
-                {
-                    $aux = $client->request('GET', "/api/facs/{$idfac['id']}");
-                    $auxde=json_decode($aux->getBody()->getContents(), true);
-                    $DatosFacs[$i]=$auxde;  //se almacena cada factura en una posición del arreglo
-                    $i++;
-                }
+                $MensajeError = '';
+                $MensajeErrorFacs = "No se ha generado ninguna factura en la fecha solicitada ({$fechaR}), intente de nuevo con otra fecha";
+                return view('solicReporte', compact('MensajeError', 'MensajeErrorFacs'));
             }
-            //return $DatosFacs;
-            return view('ReporteFacs', compact('DatosFacs', 'fechaR'));
+            else
+            {                        
+
+                //Obtiene todos los datos de las facturas existentes en las fechas seleccionadas
+                $DatosFacs = []; //Datos de las facturas seleccionadas
+                $i=0;
+                foreach($fechasid as $fecha)
+                {
+                    foreach($fecha as $idfac) 
+                    {
+                        $aux = $client->request('GET', "/api/facs/{$idfac['id']}");
+                        $auxde=json_decode($aux->getBody()->getContents(), true);
+                        $DatosFacs[$i]=$auxde;  //se almacena cada factura en una posición del arreglo
+                        $i++;
+                    }
+                }
+                //return $DatosFacs;
+                return view('ReporteFacs', compact('DatosFacs', 'fechaR'));
+            }
     }
 }

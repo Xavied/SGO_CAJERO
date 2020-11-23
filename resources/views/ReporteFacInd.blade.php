@@ -62,7 +62,7 @@
                     <td>{{$DatosFac['cliente']['cli_telf']}}</td>
                 </tr>
                 <tr>
-                    <th>Cédula / Email </th>
+                    <th>Email </th>
                     <td>{{$DatosFac['cliente']['cli_email']}}</td>
                 </tr>
                 <tr>

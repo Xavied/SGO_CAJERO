@@ -17,7 +17,9 @@ class ReporteController extends Controller
     
     public function form()
     {
-        return view('solicReporte');
+        $MensajeError = '';
+        $MensajeErrorFacs = '';
+        return view('solicReporte', compact('MensajeError', 'MensajeErrorFacs'));
     }
 
     public function excel(Request $request)
@@ -62,128 +64,134 @@ class ReporteController extends Controller
                         $fechasid[$fac['fct_fch']][] = ['id' => $fac['id']];
                     }
                 }
-            //if el arreglo esta vacio no hay facturas en esas fechas!!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                           
+            //Si el arreglo fechasid está vacío no se han generado facturas en esa semana                           
+            if(count($fechasid)==0)
+            {
+                $MensajeErrorFacs = "";
+                $MensajeError = "No se ha generado ninguna factura en el periodo solicitado ({$fecha} / {$datePlusOneWeek}), intente de nuevo con otra fecha";
+                return view('solicReporte', compact('MensajeError', 'MensajeErrorFacs'));
+            }
+            else
+            {
+                //Obtiene todos los datos de las facturas existentes en las fechas seleccionadas
+                $DatosFacs = []; //Datos de las facturas seleccionadas
+                $i=0;
+                foreach($fechasid as $fecha)
+                    foreach($fecha as $idfac) 
+                    {
+                        $aux = $client->request('GET', "/api/facsplatos/{$idfac['id']}");
+                        $auxde=json_decode($aux->getBody()->getContents(), true);
+                        $DatosFacs[$i]=$auxde;  //se almacena cada factura en una posición del arreglo
+                        $i++;
+                    }
+                    
+                //Organiza cada detalle con su fecha correspondiente en la posición de un arreglo
+                $DetalleFecha = [];
+                $j=0;
+                foreach($DatosFacs as $Factura)
+                    foreach($Factura['platos_detalle'] as $Detalle)
+                    {
+                        $DetalleFecha[] = ['fct_fch' =>$Factura['factura'][0]['fct_fch'], 'plt_nom' => $Detalle['plt_nom'], 'plt_pvp' => $Detalle['plt_pvp'],'plt_tipo' => $Detalle['plt_tipo'],'dtall_cant' => $Detalle['dtall_cant']+0, 'dtall_valor'=> $Detalle['dtall_valor']+0];
+                    }         
 
-            //Obtiene todos los datos de las facturas existentes en las fechas seleccionadas
-            $DatosFacs = []; //Datos de las facturas seleccionadas
-            $i=0;
-            foreach($fechasid as $fecha)
-                foreach($fecha as $idfac) 
+                #region Reporte por NOMBRE de plato-------------------------------------------------------
+                //Agrupa los valores por fecha y nombre (para el reporte por nombre de plato)
+                $out = array();            
+
+                foreach ($DetalleFecha as $row) {
+                    if(! isset($out[$row['fct_fch']][$row['plt_nom']])) {
+                        $out[$row['fct_fch']][$row['plt_nom']][0]=0;
+                        $out[$row['fct_fch']][$row['plt_nom']][1]=0;
+                    }
+                    $out[$row['fct_fch']][$row['plt_nom']][0] += $row['dtall_cant'];
+                    $out[$row['fct_fch']][$row['plt_nom']][1] +=$row['dtall_valor'];
+                } 
+
+                //Generación del array para gráfico de pastel y barras
+                $GrafNom = array();
+                $GrafNom2 = array();
+                foreach ($DetalleFecha as $row) {
+                    if(! isset($GrafNom[$row['plt_nom']])) {
+                        $GrafNom[$row['plt_nom']][1]=0;
+                    }
+                    $GrafNom[$row['plt_nom']][0] = $row['plt_nom'];
+                    $GrafNom[$row['plt_nom']][1] += $row['dtall_cant'];
+                }            
+                $k=0;
+                foreach($GrafNom as $p)
                 {
-                    $aux = $client->request('GET', "/api/facsplatos/{$idfac['id']}");
-                    $auxde=json_decode($aux->getBody()->getContents(), true);
-                    $DatosFacs[$i]=$auxde;  //se almacena cada factura en una posición del arreglo
-                    $i++;
+                    $GrafNom2[$k][0] = $p[0];
+                    $GrafNom2[$k][1] = $p[1];
+                    $k++;
+                }
+
+                //Asigna un key a cada valor (para el reporte por nombre de plato)
+                $out2 = array();
+                foreach($out as $fct_fch => $fct_fch_array) {
+                    foreach($fct_fch_array as $plt_nom => $plt_nom_array){
+                        $out2[] = array('fct_fch' => $fct_fch, 'plt_nom' => $plt_nom, 'dtall_cant' => $plt_nom_array[0], 'dtall_valor'=> $plt_nom_array[1] );
+                    }
                 }
                 
-            //Organiza cada detalle con su fecha correspondiente en la posición de un arreglo
-            $DetalleFecha = [];
-            $j=0;
-            foreach($DatosFacs as $Factura)
-                foreach($Factura['platos_detalle'] as $Detalle)
+                //Agrupa todos los detalles de una fecha en una posición de array (para el reporte por nombre de plato)
+                $PlatoNombre=array();
+                foreach($out2 as $element1)
                 {
-                    $DetalleFecha[] = ['fct_fch' =>$Factura['factura'][0]['fct_fch'], 'plt_nom' => $Detalle['plt_nom'], 'plt_pvp' => $Detalle['plt_pvp'],'plt_tipo' => $Detalle['plt_tipo'],'dtall_cant' => $Detalle['dtall_cant']+0, 'dtall_valor'=> $Detalle['dtall_valor']+0];
-                }         
-
-            #region Reporte por NOMBRE de plato-------------------------------------------------------
-            //Agrupa los valores por fecha y nombre (para el reporte por nombre de plato)
-            $out = array();            
-
-            foreach ($DetalleFecha as $row) {
-                if(! isset($out[$row['fct_fch']][$row['plt_nom']])) {
-                    $out[$row['fct_fch']][$row['plt_nom']][0]=0;
-                    $out[$row['fct_fch']][$row['plt_nom']][1]=0;
+                    $PlatoNombre[$element1['fct_fch']][] = $element1;
                 }
-                $out[$row['fct_fch']][$row['plt_nom']][0] += $row['dtall_cant'];
-                $out[$row['fct_fch']][$row['plt_nom']][1] +=$row['dtall_valor'];
-            } 
+                //Keys del arreglo para obtener todas las fechas en las que se han ingresado facturas (para el reporte por nombre de plato)
+                $keys = array_keys($PlatoNombre);
+                #endregion ---------------------------------------------------------------------------------------
+                
+                #region Reporte por TIPO de plato --------------------------------------------------------
+                //Agrupa los valores por fecha y nombre (para el reporte por TIPO de plato)
+                $TiPlt = array();
+                foreach ($DetalleFecha as $row) {
+                    if(! isset($TiPlt[$row['fct_fch']][$row['plt_tipo']])) {
+                        $TiPlt[$row['fct_fch']][$row['plt_tipo']][0]=0;
+                        $TiPlt[$row['fct_fch']][$row['plt_tipo']][1]=0;
+                    }
+                    $TiPlt[$row['fct_fch']][$row['plt_tipo']][0] += $row['dtall_cant'];
+                    $TiPlt[$row['fct_fch']][$row['plt_tipo']][1] += $row['dtall_valor'];
+                } 
 
-            //Generación del array para gráfico de pastel y barras
-            $GrafNom = array();
-            $GrafNom2 = array();
-            foreach ($DetalleFecha as $row) {
-                if(! isset($GrafNom[$row['plt_nom']])) {
-                    $GrafNom[$row['plt_nom']][1]=0;
+                //Generación del array para gráfico de pastel y barras
+                $GrafTipo = array();
+                $GrafTipo2 = array();
+                foreach ($DetalleFecha as $row) {
+                    if(! isset($GrafTipo[$row['plt_tipo']])) {
+                        $GrafTipo[$row['plt_tipo']][1]=0;
+                    }
+                    $GrafTipo[$row['plt_tipo']][0] = $row['plt_tipo'];
+                    $GrafTipo[$row['plt_tipo']][1] += $row['dtall_cant'];
+                }            
+                $k=0;
+                foreach($GrafTipo as $p)
+                {
+                    $GrafTipo2[$k][0] = $p[0];
+                    $GrafTipo2[$k][1] = $p[1];
+                    $k++;
                 }
-                $GrafNom[$row['plt_nom']][0] = $row['plt_nom'];
-                $GrafNom[$row['plt_nom']][1] += $row['dtall_cant'];
-            }            
-            $k=0;
-            foreach($GrafNom as $p)
-            {
-                $GrafNom2[$k][0] = $p[0];
-                $GrafNom2[$k][1] = $p[1];
-                $k++;
-            }
 
-            //Asigna un key a cada valor (para el reporte por nombre de plato)
-            $out2 = array();
-            foreach($out as $fct_fch => $fct_fch_array) {
-                foreach($fct_fch_array as $plt_nom => $plt_nom_array){
-                    $out2[] = array('fct_fch' => $fct_fch, 'plt_nom' => $plt_nom, 'dtall_cant' => $plt_nom_array[0], 'dtall_valor'=> $plt_nom_array[1] );
+                //Asigna un key a cada valor (para el reporte por TIPO de plato)
+                $TiPlt2 = array();
+                foreach($TiPlt as $fct_fch => $fct_fch_array) {
+                    foreach($fct_fch_array as $plt_tipo => $plt_tipo_array){
+                        $TiPlt2[] = array('fct_fch' => $fct_fch, 'plt_tipo' => $plt_tipo, 'dtall_cant' => $plt_tipo_array[0], 'dtall_valor'=> $plt_tipo_array[1] );
+                    }
+                }            
+                //Agrupa todos los detalles de una fecha en una posición de array (para el reporte por TIPO de plato)
+                $PlatoTipo=array();
+                foreach($TiPlt2 as $element1)
+                {
+                    $PlatoTipo[$element1['fct_fch']][] = $element1;
                 }
-            }
-            
-            //Agrupa todos los detalles de una fecha en una posición de array (para el reporte por nombre de plato)
-            $PlatoNombre=array();
-            foreach($out2 as $element1)
-            {
-                $PlatoNombre[$element1['fct_fch']][] = $element1;
-            }
-            //Keys del arreglo para obtener todas las fechas en las que se han ingresado facturas (para el reporte por nombre de plato)
-            $keys = array_keys($PlatoNombre);
-            #endregion ---------------------------------------------------------------------------------------
-            
-            #region Reporte por TIPO de plato --------------------------------------------------------
-            //Agrupa los valores por fecha y nombre (para el reporte por TIPO de plato)
-            $TiPlt = array();
-            foreach ($DetalleFecha as $row) {
-                if(! isset($TiPlt[$row['fct_fch']][$row['plt_tipo']])) {
-                    $TiPlt[$row['fct_fch']][$row['plt_tipo']][0]=0;
-                    $TiPlt[$row['fct_fch']][$row['plt_tipo']][1]=0;
-                }
-                $TiPlt[$row['fct_fch']][$row['plt_tipo']][0] += $row['dtall_cant'];
-                $TiPlt[$row['fct_fch']][$row['plt_tipo']][1] += $row['dtall_valor'];
-            } 
-
-            //Generación del array para gráfico de pastel y barras
-            $GrafTipo = array();
-            $GrafTipo2 = array();
-            foreach ($DetalleFecha as $row) {
-                if(! isset($GrafTipo[$row['plt_tipo']])) {
-                    $GrafTipo[$row['plt_tipo']][1]=0;
-                }
-                $GrafTipo[$row['plt_tipo']][0] = $row['plt_tipo'];
-                $GrafTipo[$row['plt_tipo']][1] += $row['dtall_cant'];
-            }            
-            $k=0;
-            foreach($GrafTipo as $p)
-            {
-                $GrafTipo2[$k][0] = $p[0];
-                $GrafTipo2[$k][1] = $p[1];
-                $k++;
-            }
-
-            //Asigna un key a cada valor (para el reporte por TIPO de plato)
-            $TiPlt2 = array();
-            foreach($TiPlt as $fct_fch => $fct_fch_array) {
-                foreach($fct_fch_array as $plt_tipo => $plt_tipo_array){
-                    $TiPlt2[] = array('fct_fch' => $fct_fch, 'plt_tipo' => $plt_tipo, 'dtall_cant' => $plt_tipo_array[0], 'dtall_valor'=> $plt_tipo_array[1] );
-                }
-            }            
-            //Agrupa todos los detalles de una fecha en una posición de array (para el reporte por TIPO de plato)
-            $PlatoTipo=array();
-            foreach($TiPlt2 as $element1)
-            {
-                $PlatoTipo[$element1['fct_fch']][] = $element1;
-            }
-            #endregion
-           
-
+                #endregion
             
 
+                return view('Reporte', compact('dates', 'PlatoNombre', 'keys', 'PlatoTipo', 'GrafNom2', 'GrafTipo2', 'DetalleFecha'));
 
-        return view('Reporte', compact('dates', 'PlatoNombre', 'keys', 'PlatoTipo', 'GrafNom2', 'GrafTipo2', 'DetalleFecha'));
+            }            
     }
 
 }
