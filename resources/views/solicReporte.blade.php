@@ -20,6 +20,8 @@
           <div class="container mt-4">
             <h2>Ingrese la fecha para generar el reporte</h2>
             <br>
+            <p>El reporte generado será de una semana a partir de la fecha ingresada.</p>
+            <p class="text-danger">{{$MensajeError}}</p>
             <div class="container">
               <form action="{{route('tablacrear')}}" method="POST">
                 @csrf
@@ -35,6 +37,7 @@
           <div class="container mt-4">
             <h2>Ingrese la fecha de la que desea visualizar las facturas</h2>
             <br>
+            <p class="text-danger">{{$MensajeErrorFacs}}</p>
             <div class="container">
               <form action="{{route('facsDia')}}" method="POST">
                 @csrf
