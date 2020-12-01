@@ -12,7 +12,7 @@
                                             <label for="email" class="col-md-4 col-form-label text-md-right">Usuario</label>
 
                                             <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control" name="email" required autocomplete="current-email" autofocus>
+                                                <input id="email" type="text" class="form-control" name="email" required autocomplete="current-email" autofocus>
                                                 <!--pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"-->
                                             </div>
                                         </div>
