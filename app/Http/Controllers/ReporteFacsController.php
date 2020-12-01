@@ -45,6 +45,12 @@ class ReporteFacsController extends Controller
             'headers'=>['Authorization'=> $token]
 
         ]);
+
+        if (empty($fechaR)) {
+            $MensajeError = "";
+                $MensajeErrorFacs = "Debe ingresar una fecha válida";
+                return view('solicReporte', compact('MensajeError', 'MensajeErrorFacs'));
+        }
             $facs = $client->request('GET', "/api/facs");//solicita todas las facturas
             $todasfacs=json_decode($facs->getBody()->getContents(), true);//pone todas las facturas en un array
             $todasfacs = $todasfacs['data:'];//obtiene solo el array de datos 
