@@ -31,7 +31,7 @@ class BuscarFacturaController extends Controller
            $facs =  json_decode($response->getBody()->getContents(), true);
             if($facs['factura_clientes']==null)
             {
-            return  "No tiene facturas disponibles";
+            return  \view('webcajero.clientesinfacturas');
             }
             else
                 $facs = $facs['factura_clientes'];
@@ -40,12 +40,9 @@ class BuscarFacturaController extends Controller
             //dd($facs);*/
         }catch(ClientException $e)
         {
-            return \view('errorusuario');
+            return \view('webcajero.cedulaincorrecta');
 
         }
-
-
-
 
     }
     public function index()

@@ -12,7 +12,7 @@
 
    <style>
        *{margin: 0 ;padding:0;}
-       html{background-color:#f79d20}
+       html{background-color:#ffffff}
        body{width:750px; height:750px; margin:auto; }
        .items{border-spacing:0;}
 
