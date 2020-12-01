@@ -80,16 +80,21 @@ class imprimirController extends Controller
 
                //obtenemos el email del cliente de la factura solicitada
                 $emailCliFac=$detalles['cliente']['cli_email'];
-                //enviamos el pdf por mail
 
-                $messageData=[];//mensaje vacio; no se necesita pero lo inicializamos por send
-                $subject = "SGO-RESTAURANTE-FACTURA";
-                Mail::send('emailcabecera.email', $messageData, function ($mail) use ($pdf, $subject, $emailCliFac) {
+                //enviamos el pdf por mail
+                if($emailCliFac!="Cosumidor Final")
+                {
+                    $messageData=[];//mensaje vacio; no se necesita pero lo inicializamos por send
+                    $subject = "SGO-RESTAURANTE-FACTURA";
+                    Mail::send('emailcabecera.email', $messageData, function ($mail) use ($pdf, $subject, $emailCliFac) {
                     $mail->from("nanosoft101aa@gmail.com","Restaurante-(Sistema Sgo)");
                     $mail->subject($subject);
                     $mail->to($emailCliFac);
                     $mail->attachData($pdf->output(), 'imprimir.pdf');
                 });
+
+                }
+
                 //retornamos la vista de la factura para que pueda ser imprimida.
                 return $pdf->stream('imprimir.pdf');
 
