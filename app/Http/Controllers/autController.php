@@ -30,16 +30,18 @@ class autController extends Controller
 
             $data=json_decode($response->getBody());
 
+            $token=$data->data->token;
             $data=$data->message;
 
             if($data='Bienvenido')
             {
+
                 return \view('webcajero.cajero');
             }
         }
         catch(ClientException $e)
         {
-           return 'Error al autenticarse';
+           return \view('webcajero.errorusuario');
 
         }
 

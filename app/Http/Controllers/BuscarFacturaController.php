@@ -40,7 +40,7 @@ class BuscarFacturaController extends Controller
             //dd($facs);*/
         }catch(ClientException $e)
         {
-            return "No hay un cliente con esa cédula";
+            return \view('errorusuario');
 
         }
 
@@ -107,8 +107,14 @@ class BuscarFacturaController extends Controller
                 $total = $subtotal + $IVA;
                 $total = \number_format($total,2);
                //$total = $vistaiva + $subtotaliva
-                return view('webcajero.Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total', 'idPedido')); //pasamos cada valor a la vista Factura
-
+               //verficamos si el email del cliente es valido o no
+                $emailvalido=true;
+                $eml=$facs->cliente->cli_email;
+                if($facs->cliente->cli_email == "Cosumidor Final")
+                {
+                    $emailvalido=false;
+                }
+                return view('webcajero.Factura', compact('facs', 'detalles', 'var', 'vistaiva', 'subtotal','idFac','IVA','total', 'idPedido','emailvalido')); //pasamos cada valor a la vista Factura
 
 
 

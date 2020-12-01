@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Buscar Mesas</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+@extends('layouts.cajeroly')
+@section('head')
+<title>Cajero</title>
 
        <!-- UIkit CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
@@ -23,27 +16,21 @@
             }
 
         </style>
+@endsection
+@section('header')
+<div class="mt-4">
+    <a class="btn btn-outline-primary" href="/mesaofactura">Volver atrás</a>
+    <a class="btn btn-outline-danger" href="/">Salir!</a>
+</div>
 
+@endsection
 
-    </head>
-    <body>
-<div class="ml-3">
-    <br>
-        <div class="uk-animation-toggle" tabindex="0">
-        <a class="uk-button uk-button-default content" href="/">Salir</a>
-
-        </div>
-
-    <br>
-    <br>
-
-
-
-<div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
+@section('content')
+<div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center mr-3 ml-3 mt-5" uk-grid>
     @foreach($mesas as $buscarmesas)
 
             <div>
-                <div class="uk-card uk-card-hover uk-card-body">
+                <div class="uk-card uk-card-hover uk-card-body ">
                     <h3 class="uk-card-title">Mesa: {{$buscarmesas->id}}</h3>
                     <p> {{$buscarmesas->mes_descr}}</p>
                     {!! Form::open(['route'=> 'buscarmesa', 'method'=> 'POST']) !!}
@@ -60,12 +47,4 @@
      @endforeach
 </div>
 
-<br>
-<br>
-<div class="uk-animation-toggle" tabindex="0">
-<a class="uk-button uk-button-default content" href="/mesaofactura">Volver</a>
-</div>
-</div>
-
-</body>
-</html>
+@endsection

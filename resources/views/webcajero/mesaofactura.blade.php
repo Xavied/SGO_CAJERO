@@ -1,68 +1,35 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <!-- UIkit CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/css/uikit.min.css" />
-
-        <!-- Styles -->
-        <style>
-             .content {
-                 background-color: #FFBC30;
-                 color:#fff;
-            }
-
-        </style>
-
-    </head>
-    <body>
-    <br>
-<div class="uk-animation-toggle" tabindex="0">
-<a class="uk-button uk-button-default content" href="/">Salir</a>
+@extends('layouts.cajeroly')
+@section('head')
+<title>Cajero</title>
+@endsection
+@section('header')
+<div class="mt-4">
+    <a class="btn btn-outline-primary" href="/cajero">Volver atrás</a>
+    <a class="btn btn-outline-danger" href="/">Salir!</a>
 </div>
 
-    <br>
-    <br>
+@endsection
 
-<div class="uk-margin uk-margin-large-top uk-placeholder">
-    <div class="uk-flex uk-flex-center">
-        <div class="uk-grid-match" uk-grid>
-            <div class="uk-animation-toggle" tabindex="0">
-                <div class="uk-card uk-card-default uk-card-body uk-animation-fade">
-                    <p class="uk-text-center">
-                        <a class="uk-button uk-button-default content" href="/buscarfactura"> Buscar por cédula del Cliente</a>
-                    </p>
-                </div>
-
-            </div>
-            <br>
-            <br>
-            <div class="uk-animation-toggle" tabindex="0">
-
-                <div class="uk-card uk-card-default uk-card-body uk-animation-fade">
-                     <p class="uk-text-center">
-                         <a class="uk-button uk-button-default content" href="/buscarmesa"> Buscar por Mesa</a>
-                    </p>
-                </div>
-            </div>
-            <br>
-            <br>
-        </div>
-
+@section('content')
+<div class="mt-4 mr-1 ml-1 mb-5 row">
+  <div class="col-sm-6">
+    <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2019/08/30/14/52/id-4441548_1280.png" class="card-img-top" width="400px" height="400px">
+      <div class="card-body text-center">
+        <h5 class="card-title">Buscar por cédula del Cliente</h5>
+        <a href="/buscarfactura" class="btn btn-primary">Ir!</a>
+      </div>
     </div>
-
- </div>
- <div class="uk-animation-toggle" tabindex="0">
-<a class="uk-button uk-button-default content" href="/">Volver</a>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2017/02/15/10/39/food-2068217_1280.jpg" class="card-img-top" width="400px" height="400px">
+      <div class="card-body text-center">
+        <h5 class="card-title"> Buscar por Mesa</h5>
+        <a href="/buscarmesa" class="btn btn-primary">Ir!</a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<br>
-
-</body>
-</html>
+@endsection

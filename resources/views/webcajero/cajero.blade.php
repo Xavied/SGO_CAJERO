@@ -12,9 +12,9 @@
 
 
 @section('content')
-<div class="mt-5 row justify-content-center">
-    <div class="card" style="width: 50%;">
-        <img src="https://cdn.pixabay.com/photo/2020/09/28/16/05/cash-register-5610295_1280.jpg" class="card-img-top" alt="...">
+<div class="mt-3 row justify-content-center">
+    <div class="card" style="width: 45%;">
+        <img src="https://cdn.pixabay.com/photo/2020/09/28/16/05/cash-register-5610295_1280.jpg" class="card-img-top" >
         <div class="card-body">
           <h5 class="card-title text-center">Imprimir Factura</h5>
           <div class="text-center">
