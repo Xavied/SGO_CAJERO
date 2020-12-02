@@ -27,7 +27,7 @@
                 </div>
                 <div class="col">
                     <h1>SGO</h1>
-                    <p>REPORTE DE VENTAS</p>
+                    <p>Administrador</p>
                 </div>
 
 

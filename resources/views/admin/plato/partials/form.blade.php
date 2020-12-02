@@ -8,7 +8,10 @@
 </div>
 <div class="form-group">
     {{ Form::label('plt_tipo', 'Tipo') }}
-    {{ Form::text('plt_tipo', null, ['class' => 'form-control', 'id' => 'plt_tipo']) }}
+	{{ Form::select('plt_tipo', array('Aperitivo' => 'Aperitivo', 'Sopa' => 'Sopa',
+										'Plato_Fuerte' => 'Plato Fuerte', 'Ensalada' => 'Ensalada', 'Marisco' => 'Marisco',
+										'Bebida' => 'Bebida', 'Postre' => 'Postre', 'promocion' => 'Promoción'
+										),['class' => 'form-control', 'id' => 'plt_tipo']) }}
 </div>
 <div class="form-group">
     {{ Form::label('plt_pvp', 'PVP') }}

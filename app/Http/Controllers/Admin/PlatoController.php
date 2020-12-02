@@ -35,13 +35,19 @@ class PlatoController extends Controller
      */
     public function index()
     {
+        return view('admin.plato.indextipo');
+
+    }
+
+    public function platosportipo($tipo)
+    {
         global $client;
 
-        $platosjson = $client->request('GET', "/api/platos");
+        $platosjson = $client->request('GET', "/api/tipoplatos/$tipo");
         $platos =  json_decode($platosjson->getBody()->getContents(), true);
-        $platosarr = $platos['data:'];
+        $platosarr = $platos['data'];
 
-        //dd($platos);
+        //dd($platosarr);
 
         return view('admin.plato.index', compact('platosarr'));
     }

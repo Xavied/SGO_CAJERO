@@ -22,9 +22,7 @@
                         <tr>
                             <th width="10px">ID</th>
                             <th>Nombre</th>
-                            <th>Tipo</th>
                             <th>Visible</th>
-                            <th>IVA</th>
                             <th>PVP</th>
                             <th colspan="3">&nbsp;</th>
                         </tr>
@@ -34,20 +32,8 @@
                         <tr>
                             <td>{{$plato["id"]}}</td>
                             <td>{{$plato["plt_nom"]}}</td>
-                            <td>{{$plato["plt_tipo"]}}</td>
                             <td>
                                 @if($plato["plt_visbl"] == true)
-
-                                Si
-
-                                @else
-
-                                No
-
-                                @endif
-                            </td>
-                            <td>
-                                @if($plato["plt_iva"] == true)
 
                                 Si
 
@@ -61,20 +47,23 @@
 
                             <td width="10px">
                                 <a href="{{ route('platos.show', $plato["id"]) }}"
-                                    class="btn btn-sm btn-outline-secondary">Ver</a>
+                                    class="btn btn-sm btn-outline-warning">Ver</a>
                             </td>
                             <td width="10px">
                                 <a href="{{ route('platos.edit', $plato["id"]) }}"
-                                    class="btn btn-sm btn-outline-secondary">Editar</a>
+                                    class="btn btn-sm btn-outline-dark">Editar</a>
                             </td>
+                            <!--
                             <td width="10px">
                                 {!! Form::open(['route' => ['platos.destroy', $plato["id"]], 'method' => 'DELETE'])
                                 !!}
+                                
                                 <button class="btn btn-sm btn-outline-danger">
                                     Eliminar
                                 </button>
                                 {!! Form::close() !!}
                             </td>
+                            -->
                         </tr>
                         @endforeach
                     </tbody>
